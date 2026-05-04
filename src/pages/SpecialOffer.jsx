@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { FaUser, FaEnvelope, FaPhone, FaArrowRight, FaCalendarAlt } from 'react-icons/fa'
 
 const SCHEDULER_URL = '/api/scheduler'
-const SCHEDULER_SECRET = import.meta.env.VITE_SCHEDULER_SECRET
-const SCHEDULER_CONFIGURED = Boolean(import.meta.env.VITE_SCHEDULER_URL)
+const DEV_SCHEDULER_SECRET = import.meta.env.DEV ? import.meta.env.VITE_SCHEDULER_SECRET : undefined
+const SCHEDULER_CONFIGURED = import.meta.env.VITE_SCHEDULER_DISABLED !== 'true'
 
 const locations = {
   merrillville: { key: 'merrillville', label: 'Merrillville' },
@@ -98,7 +98,7 @@ export default function SpecialOffer() {
         method: 'POST',
         body: JSON.stringify({
           action: 'book',
-          secret: SCHEDULER_SECRET,
+          secret: DEV_SCHEDULER_SECRET,
           location,
           date,
           time: selectedSlot,

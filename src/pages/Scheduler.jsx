@@ -5,8 +5,8 @@ import { FaBolt, FaPhone } from 'react-icons/fa'
 // In dev, calls go to /api/scheduler and Vite proxies to the Apps Script URL.
 // (Direct browser calls to script.google.com fail CORS due to its 302 redirect.)
 const SCHEDULER_URL = '/api/scheduler'
-const SCHEDULER_SECRET = import.meta.env.VITE_SCHEDULER_SECRET
-const SCHEDULER_CONFIGURED = Boolean(import.meta.env.VITE_SCHEDULER_URL)
+const DEV_SCHEDULER_SECRET = import.meta.env.DEV ? import.meta.env.VITE_SCHEDULER_SECRET : undefined
+const SCHEDULER_CONFIGURED = import.meta.env.VITE_SCHEDULER_DISABLED !== 'true'
 
 const DESK_IMAGE =
   'https://www.kauffmanchiros.com/wp-content/uploads/2019/12/Chiropractic-Merrillville-IN-Receptionist-Desk-Contact-Us.jpg'
@@ -138,7 +138,7 @@ export default function Scheduler() {
         // text/plain avoids CORS preflight to Apps Script
         body: JSON.stringify({
           action: 'book',
-          secret: SCHEDULER_SECRET,
+          secret: DEV_SCHEDULER_SECRET,
           location: activeLocation.key,
           date,
           time: selectedSlot,
