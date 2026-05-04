@@ -69,15 +69,13 @@ export default function Patients() {
             <p className="text-gray-600 mb-6">
               Save time at your first visit by downloading and completing our patient forms before you arrive. You can also fill them out in our office.
             </p>
-            <div className="space-y-3">
-              {['New Patient Intake Form', 'Health History Questionnaire', 'HIPAA Privacy Notice', 'Financial Policy Agreement'].map(form => (
-                <div key={form} className="flex items-center gap-3 bg-bg-light rounded-lg p-4">
-                  <FaFileAlt className="text-primary shrink-0" />
-                  <span className="text-gray-700 font-medium text-sm">{form}</span>
-                  <span className="ml-auto text-primary-light text-xs font-semibold cursor-pointer hover:underline">Download PDF</span>
-                </div>
-              ))}
-            </div>
+            <Link
+              to="/patients/paperwork"
+              className="inline-flex items-center gap-3 bg-[#34a1b2] px-6 py-4 text-[18px] font-black uppercase text-white transition hover:bg-[#238494]"
+            >
+              <FaFileAlt />
+              Download Patient Forms
+            </Link>
           </div>
           <div className="bg-primary rounded-2xl p-8 text-white">
             <h3 className="text-xl font-bold mb-4 font-[var(--font-heading)]">Insurance We Accept</h3>

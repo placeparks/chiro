@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { FaArrowRight, FaComments, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaArrowRight } from 'react-icons/fa'
+import ReviewsLocations from '../components/ReviewsLocations'
 import girlBackground from '../assets/girl.jpg'
 
 const commonSymptoms = [
@@ -193,69 +194,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="kc-reviews-section">
-        <div className="kc-reviews-section__header">
-          <h2>Trusted Chiropractor: Read Our Reviews</h2>
-        </div>
-
-        <div className="kc-reviews-section__offer">
-          <Link to="/patients">
-            <FaExternalLinkAlt />
-            <span>New Patient Special Offer</span>
-            <FaAngleDoubleRightIcon />
-          </Link>
-        </div>
-
-        <div className="kc-reviews-section__body">
-          <div className="kc-review-card">
-            <div className="kc-review-card__icon" aria-hidden="true">
-              <FaComments />
-            </div>
-            <h3>Lorraine G.</h3>
-            <p>
-              "Thanks to Dr. Kauffman and his wonderful staff, I no longer feel like an arthritic 80 year old woman. I came in with aches and pains all over. I was moving like a turtle. Now, I have more energy. I can sit and stand and walk and sleep without hip pain. Dr. Kauffman's treatments have worked wonders. He is knowledgeable, professional, and really cares about his patients."
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="kc-home-locations">
-        <div className="kc-home-locations__details">
-          <div className="kc-location-entry">
-            <div className="kc-location-entry__marker">1</div>
-            <div>
-              <h2>Kauffman Chiropractic - Merrillville</h2>
-              <p>100 West 84th Drive</p>
-              <p>Merrillville, IN 46410</p>
-              <a href="tel:2197367363">(219) 736-7363</a>
-            </div>
-          </div>
-
-          <div className="kc-location-entry">
-            <div className="kc-location-entry__marker">2</div>
-            <div>
-              <h2>Kauffman Chiropractic - Crown Point</h2>
-              <p>7620 East 109th Avenue</p>
-              <p>Crown Point, IN 46307</p>
-              <a href="tel:2196629855">(219) 662-9855</a>
-            </div>
-          </div>
-        </div>
-
-        <div className="kc-home-locations__map">
-          <iframe
-            title="Kauffman Chiropractic Locations"
-            src="https://www.google.com/maps?q=Kauffman%20Chiropractic%20Merrillville%20IN%20Kauffman%20Chiropractic%20Crown%20Point%20IN&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-      </section>
+      <ReviewsLocations />
 
     </>
   )
-}
 
-function FaAngleDoubleRightIcon() {
   return <span aria-hidden="true" className="kc-double-arrow">»</span>
 }

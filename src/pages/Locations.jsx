@@ -1,4 +1,5 @@
 import { FaMapMarkerAlt, FaPhone, FaClock, FaDirections } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const locations = [
   {
@@ -16,6 +17,7 @@ const locations = [
       { day: 'Sunday', time: 'Closed' },
     ],
     mapQuery: 'Kauffman+Chiropractic+Merrillville+IN',
+    detailPath: '/merrillville',
   },
   {
     name: 'Crown Point Office',
@@ -32,6 +34,7 @@ const locations = [
       { day: 'Sunday', time: 'Closed' },
     ],
     mapQuery: 'Kauffman+Chiropractic+Crown+Point+IN',
+    detailPath: '/crown-point',
   },
 ]
 
@@ -88,14 +91,22 @@ export default function Locations() {
                   </div>
                 </div>
 
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${loc.mapQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-light text-white font-bold py-3 rounded-lg transition"
-                >
-                  <FaDirections /> Get Directions
-                </a>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <Link
+                    to={loc.detailPath}
+                    className="flex w-full items-center justify-center bg-[#f8a500] px-4 py-3 text-center font-bold text-white transition hover:bg-[#e69600]"
+                  >
+                    Location Details
+                  </Link>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${loc.mapQuery}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center gap-2 bg-primary px-4 py-3 font-bold text-white transition hover:bg-primary-light"
+                  >
+                    <FaDirections /> Get Directions
+                  </a>
+                </div>
               </div>
             </div>
           ))}

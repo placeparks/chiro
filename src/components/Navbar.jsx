@@ -58,10 +58,15 @@ const aboutMenu = [
 ]
 
 const patientsMenu = [
-  { label: 'PAPERWORK', path: '/patients' },
-  { label: 'FIRST VISIT', path: '/patients' },
+  { label: 'PAPERWORK', path: '/patients/paperwork' },
+  { label: 'FIRST VISIT', path: '/your-first-visit' },
   { label: 'REVIEWS', path: '/testimonials' },
   { label: 'BLOG', path: '/patients' },
+]
+
+const schedulerMenu = [
+  { label: 'MERRILLVILLE', path: '/scheduler/merrillville' },
+  { label: 'CROWN POINT', path: '/scheduler/crown-point' },
 ]
 
 function DropdownItem({ label, path, sub, onClose }) {
@@ -126,7 +131,7 @@ function BrandLogo({ compact = false }) {
   )
 }
 
-function NavDropdown({ label, path, items, active }) {
+function NavDropdown({ label, path, items, active, disableParentLink = false }) {
   const [open, setOpen] = useState(false)
   const timeoutRef = useRef(null)
 
@@ -139,17 +144,27 @@ function NavDropdown({ label, path, items, active }) {
     timeoutRef.current = setTimeout(() => setOpen(false), 150)
   }
 
+  const triggerClass = `kc-nav-link ${
+    active ? 'text-[#2f9db2]' : 'text-[#444] hover:text-[#2f9db2]'
+  }`
+
   return (
     <div className="relative" onMouseEnter={onEnter} onMouseLeave={onLeave}>
-      <Link
-        to={path}
-        className={`kc-nav-link ${
-          active ? 'text-[#2f9db2]' : 'text-[#444] hover:text-[#2f9db2]'
-        }`}
-      >
-        {label}
-        <FaChevronDown className="text-[9px]" />
-      </Link>
+      {disableParentLink ? (
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className={triggerClass}
+        >
+          {label}
+          <FaChevronDown className="text-[9px]" />
+        </button>
+      ) : (
+        <Link to={path} className={triggerClass}>
+          {label}
+          <FaChevronDown className="text-[9px]" />
+        </Link>
+      )}
 
       {open && (
         <div className="absolute left-0 top-full z-50 min-w-[205px] rounded-sm border border-gray-200 bg-white py-1 shadow-xl">
@@ -197,7 +212,7 @@ export default function Navbar() {
           </div>
 
           <Link
-            to="/patients"
+            to="/special"
             className="inline-flex items-center gap-3 rounded-sm bg-[#f8a500] px-6 py-3 text-[15px] font-extrabold uppercase tracking-wide text-white transition hover:bg-[#e69600]"
           >
             New Patient Special Offer <FaAngleDoubleRight />
@@ -269,20 +284,21 @@ export default function Navbar() {
             <Link
               to="/locations"
               className={`kc-nav-link ${
-                isActive('/locations') ? 'text-[#2f9db2]' : 'text-[#444] hover:text-[#2f9db2]'
+                isActive('/locations') || isActive('/merrillville') || isActive('/crown-point')
+                  ? 'text-[#2f9db2]'
+                  : 'text-[#444] hover:text-[#2f9db2]'
               }`}
             >
               LOCATIONS
             </Link>
 
-            <Link
-              to="/contact"
-              className={`kc-nav-link ${
-                isActive('/contact') ? 'text-[#2f9db2]' : 'text-[#444] hover:text-[#2f9db2]'
-              }`}
-            >
-              SCHEDULER
-            </Link>
+            <NavDropdown
+              label="SCHEDULER"
+              path="/scheduler/merrillville"
+              items={schedulerMenu}
+              active={location.pathname.startsWith('/scheduler')}
+              disableParentLink
+            />
 
             <Link
               to="/contact"
@@ -303,9 +319,13 @@ export default function Navbar() {
             { label: 'About', path: '/about' },
             { label: 'Testimonials', path: '/testimonials' },
             { label: 'Patients', path: '/patients' },
+            { label: 'Your First Visit', path: '/your-first-visit' },
             { label: 'Symptoms', path: '/symptoms' },
             { label: 'Locations', path: '/locations' },
-            { label: 'Scheduler', path: '/contact' },
+            { label: 'Merrillville Location', path: '/merrillville' },
+            { label: 'Crown Point Location', path: '/crown-point' },
+            { label: 'Scheduler - Merrillville', path: '/scheduler/merrillville' },
+            { label: 'Scheduler - Crown Point', path: '/scheduler/crown-point' },
             { label: 'Contact', path: '/contact' },
           ].map(({ path, label }) => (
             <Link
